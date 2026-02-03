@@ -11,4 +11,5 @@ public class LineTile : MonoBehaviour {
     private bool _energized;
     private int _rotations;
 
+    public LineElementSO LineElement { get => _lineElement; }
 }

@@ -1,18 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum LineType {
+    Empty,
+    Source,
+    Wifi,
+    Lamp,
+    Line
+}
+
 [CreateAssetMenu(fileName = "NewLineElement", menuName = "LineElement")]
-public class LineElementSO : ScriptableObject {
+public class LineElementSO : ScriptableObject {    
 
-    public enum LineType {
-        Empty,
-        Source,
-        Wifi,
-        Line
-    }
-
-    [Tooltip("List of connections on a tile following the a Clockwise convention starting from the top")]
-    public List<bool> neighboorConnections = new List<bool>();
+    [Tooltip("The type of this line element")]
+    public LineType lineType = LineType.Line;
+    [Tooltip("List of connections on a tile following a Clockwise convention starting from the top")]
+    public List<bool> neighborConnections = new List<bool>();
     [Tooltip("Sprite used when the tile is not energized")]
     public Sprite offSprite;
     [Tooltip("Sprite for when the tile is energized")]
