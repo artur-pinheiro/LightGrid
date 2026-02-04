@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoBehaviour {
 
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void UpdateEnergizedLamps(bool hasEnergized) {
-        _energizedLamps += hasEnergized ? 1 : -1;
+        _energizedLamps = Mathf.Max(0, _energizedLamps + (hasEnergized ? 1 : -1));
 
         if(_energizedLamps == _totalLamps ) {
             FinishLevel();

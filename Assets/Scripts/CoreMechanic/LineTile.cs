@@ -40,7 +40,9 @@ public class LineTile : MonoBehaviour {
         _energized = isEnergized;
         _tileSprite.SetSprites(_energized);
 
-        EventManager.OnEnergizeLamp?.Invoke(_energized);
+        if ( _lineElement.lineType == LineType.Lamp ) {
+            EventManager.OnEnergizeLamp?.Invoke(_energized);
+        }
     }
 
     public bool[] GetCurrentNeighbors() { // Cyclic Array Rotation of the Neighbors array based on the current Rotation count
