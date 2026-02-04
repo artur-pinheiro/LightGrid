@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 public class TileInput : MonoBehaviour, IPointerClickHandler {
 
-    public bool inputEnabled;
+    private bool inputEnabled;
     private bool _isMoving;
 
     public UnityAction OnClickTile;
@@ -22,7 +22,7 @@ public class TileInput : MonoBehaviour, IPointerClickHandler {
     }
 
     public void EnableInput(bool enable) {
-        inputEnabled = enabled;
+        inputEnabled = enable;
     }
 
     public void ResetMovement() {

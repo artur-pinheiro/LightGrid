@@ -12,13 +12,19 @@ public class TileRotator : MonoBehaviour {
 
     public UnityAction OnFinishedRotating;
 
-    public void RotateTile(bool animate) {
-        if ( animate ) {
-            StartCoroutine(RotateOverTime());
-        } else {
-            _transform.Rotate(0, 0, rotationAngle);
-            OnFinishedRotating?.Invoke();
-        }
+    /// <summary>
+    /// Immediate, no animation
+    /// </summary>
+    public void SetTileRotation() {
+        _transform.Rotate(0, 0, rotationAngle);
+        OnFinishedRotating?.Invoke();
+    }
+
+    /// <summary>
+    /// Rotate the tile over time
+    /// </summary>
+    public void AnimateRotation() {
+        StartCoroutine(RotateOverTime());
     }
 
     private IEnumerator RotateOverTime() {
@@ -38,5 +44,6 @@ public class TileRotator : MonoBehaviour {
 
         _transform.rotation = targetRotation;
         OnFinishedRotating?.Invoke();
+        EventManager.OnFinishRotatingTile?.Invoke();
     }
 }
