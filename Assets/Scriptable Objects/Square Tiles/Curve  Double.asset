@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396c773eaf32eb14f9db53e27af0c76d, type: 3}
   m_Name: Curve  Double
   m_EditorClassIdentifier: 
-  _neighboorConnections: 01010100
-  _rotations: 0
-  _offSprite: {fileID: 21300000, guid: 9ce2bf6ab641d9a4fb51a4d7085cbe14, type: 3}
-  _onSprite: {fileID: 21300000, guid: 5d2c7f90c23c26b44ae64be1bce8c307, type: 3}
+  lineType: 4
+  neighborConnections: 01010100
+  offSprite: {fileID: 21300000, guid: 9ce2bf6ab641d9a4fb51a4d7085cbe14, type: 3}
+  onSprite: {fileID: 21300000, guid: 5d2c7f90c23c26b44ae64be1bce8c307, type: 3}

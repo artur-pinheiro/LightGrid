@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 396c773eaf32eb14f9db53e27af0c76d, type: 3}
-  m_Name: Empty
+  m_Name: Lamp
   m_EditorClassIdentifier: 
-  lineType: 0
-  neighborConnections: 00000000
-  offSprite: {fileID: 0}
-  onSprite: {fileID: 0}
+  lineType: 3
+  neighborConnections: 01000000
+  offSprite: {fileID: 21300000, guid: 6307c17e697eaa840929ce8555fb91e4, type: 3}
+  onSprite: {fileID: 21300000, guid: beee9a982c91adf428eb665de2cbae66, type: 3}
