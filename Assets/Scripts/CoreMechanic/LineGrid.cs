@@ -182,6 +182,18 @@ public class LineGrid : MonoBehaviour {
                     indexQueue.Enqueue(neighborPos);
                 }
             }
+
+            //Jump over to the wifi tiles
+            if ( currentTile.LineElement.lineType == LineType.Wifi ) {
+                for ( int i = 0; i < _wifiTilesIndexes.Count; i++ ) {
+                    if ( _wifiTilesIndexes[i] == currentIndex) continue; 
+
+                    if ( !visitedTiles.Contains(_wifiTilesIndexes[i]) ) {
+                        visitedTiles.Add(_wifiTilesIndexes[i]);
+                        indexQueue.Enqueue(_wifiTilesIndexes[i]);
+                    }
+                }
+            }
         }
 
         return result;

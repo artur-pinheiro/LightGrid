@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 396c773eaf32eb14f9db53e27af0c76d, type: 3}
-  m_Name: Lamp
+  m_Name: Wifi
   m_EditorClassIdentifier: 
-  lineType: 3
+  lineType: 2
   neighborConnections: 01000000
   offSprite: {fileID: 21300000, guid: 6307c17e697eaa840929ce8555fb91e4, type: 3}
   onSprite: {fileID: 21300000, guid: beee9a982c91adf428eb665de2cbae66, type: 3}
-  iconOnSprite: {fileID: 21300000, guid: 756bae4386f2894458a73dd0bfed8670, type: 3}
-  iconOffSprite: {fileID: 21300000, guid: 4474bcf78a0273540be8c97a37f77aeb, type: 3}
+  iconOnSprite: {fileID: 21300000, guid: 7673df1f305348d49b269ec57a8dd886, type: 3}
+  iconOffSprite: {fileID: 21300000, guid: ba212d199cbf94e45a1ea1aaba826772, type: 3}

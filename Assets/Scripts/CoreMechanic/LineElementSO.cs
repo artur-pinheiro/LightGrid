@@ -20,4 +20,8 @@ public class LineElementSO : ScriptableObject {
     public Sprite offSprite;
     [Tooltip("Sprite for when the tile is energized")]
     public Sprite onSprite;
+    [Tooltip("Sprite for energized icon")]
+    public Sprite iconOnSprite;
+    [Tooltip("Sprite for not energized icon")]
+    public Sprite iconOffSprite;
 }
