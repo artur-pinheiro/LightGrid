@@ -10,14 +10,13 @@ public class LineGrid : MonoBehaviour {
     private Dictionary<Vector2Int, LineTile> _tileGrid = new Dictionary<Vector2Int, LineTile>();
     private Vector2Int _energySourceIndex;
     private List<Vector2Int> _wifiTilesIndexes = new List<Vector2Int>();
-    private List<Vector2Int> _lampIndexes = new List<Vector2Int>();
 
     private void Awake() {
-        EventManager.OnFinishRotatingTile += ACtivateLines;
+        EventManager.OnFinishRotatingTile += ActivateLines;
     }
 
     private void OnDestroy() {
-        EventManager.OnFinishRotatingTile -= ACtivateLines;
+        EventManager.OnFinishRotatingTile -= ActivateLines;
     }
 
     void Start() {
@@ -27,12 +26,13 @@ public class LineGrid : MonoBehaviour {
     private void BuildGrid() {
         _tileGrid.Clear();
 
+        int lampsCount = 0;
         int childIndex = 0;
         int cols = Mathf.RoundToInt(_gridDimensions.x);
         int rows = Mathf.RoundToInt(_gridDimensions.y);
 
         if ( transform.childCount < cols * rows ) {
-            Debug.LogWarning("Not enough children to fill the grid!");
+            Debug.LogError("Not enough children to fill the grid!");
             return;
         }
 
@@ -100,7 +100,7 @@ public class LineGrid : MonoBehaviour {
                         _wifiTilesIndexes.Add(newIndex);
                         break;
                     case LineType.Lamp:
-                        _lampIndexes.Add(newIndex);
+                        lampsCount++;
                         break;
                     default:
                         break;                                   
@@ -109,9 +109,10 @@ public class LineGrid : MonoBehaviour {
                 childIndex++;
             }
         }
+        EventManager.OnCountLamps?.Invoke(lampsCount);
     }
 
-    private void ACtivateLines() {
+    private void ActivateLines() {
         BFS(_energySourceIndex);
     }
 

@@ -4,14 +4,24 @@ using UnityEngine.EventSystems;
 
 public class TileInput : MonoBehaviour, IPointerClickHandler {
 
-    private bool inputEnabled;
+    private bool _inputEnabled;
+    private bool _inputStopped;
     private bool _isMoving;
 
     public UnityAction OnClickTile;
     public UnityAction OnDisabledClick;
 
+    private void Awake() {
+        EventManager.OnFinishedLevel += StopInput;
+    }
+    private void OnDestroy() {
+        EventManager.OnFinishedLevel -= StopInput;
+    }
+
     public void OnPointerClick(PointerEventData eventData) {
-        if (inputEnabled) {
+        if ( _inputStopped ) return;
+
+        if (_inputEnabled) {
             if (!_isMoving) {
                 OnClickTile?.Invoke();
                 _isMoving = true;
@@ -22,7 +32,11 @@ public class TileInput : MonoBehaviour, IPointerClickHandler {
     }
 
     public void EnableInput(bool enable) {
-        inputEnabled = enable;
+        _inputEnabled = enable;
+    }
+
+    private void StopInput() {
+        _inputStopped = true;
     }
 
     public void ResetMovement() {

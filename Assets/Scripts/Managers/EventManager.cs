@@ -7,4 +7,19 @@ public static class EventManager {
     /// Called when a tile finishes its rotation
     /// </summary>
     public static UnityAction OnFinishRotatingTile { get; set; }
+
+    /// <summary>
+    /// Called when a lamp tile gets energized or turned off
+    /// </summary>
+    public static UnityAction<bool> OnEnergizeLamp { get; set; }
+
+    /// <summary>
+    /// Called when all lamps in the grid gave been counted
+    /// </summary>
+    public static UnityAction<int> OnCountLamps { get; set; }
+
+    /// <summary>
+    /// Called when the level has been completed
+    /// </summary>
+    public static UnityAction OnFinishedLevel { get; set; }
 }
