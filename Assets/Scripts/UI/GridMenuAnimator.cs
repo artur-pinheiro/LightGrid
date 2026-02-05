@@ -2,6 +2,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GridMenuAnimator : MonoBehaviour {
     [SerializeField] private float _moveOffset = 50f;
@@ -11,13 +12,15 @@ public class GridMenuAnimator : MonoBehaviour {
     private CanvasGroup _backgroundImage;
     private RectTransform[] _buttonRects;
     private CanvasGroup[] _buttonCanvasGroups;
+    private Vector2[] _originalPositions;
 
     public UnityAction<bool> OnFinishedAnimation;
 
     private void Awake() {
         _backgroundImage = GetComponent<CanvasGroup>();
-        var rects = GetComponentsInChildren<RectTransform>();
-        _buttonRects = rects.Where(r => r.gameObject != gameObject).ToArray();
+        var buttons = GetComponentsInChildren<Button>();
+        _buttonRects = buttons.Select(b => b.GetComponent<RectTransform>()).ToArray();
+        _originalPositions = _buttonRects.Select(r => r.anchoredPosition).ToArray();
         _buttonCanvasGroups = new CanvasGroup[_buttonRects.Length];
 
         for ( int i = 0; i < _buttonRects.Length; i++ ) {
@@ -37,7 +40,7 @@ public class GridMenuAnimator : MonoBehaviour {
 
         // Animate buttons after background is done
         for ( int i = 0; i < _buttonRects.Length; i++ ) {
-            StartCoroutine(AnimateButton(_buttonRects[i], _buttonCanvasGroups[i], i * _staggerDelay, true));
+            StartCoroutine(AnimateButton(_buttonRects[i], _originalPositions[i], _buttonCanvasGroups[i], i * _staggerDelay, true));
         }
 
         yield return new WaitForSeconds(_duration * _buttonRects.Length + _buttonRects.Length * _staggerDelay);
@@ -53,7 +56,7 @@ public class GridMenuAnimator : MonoBehaviour {
     private IEnumerator CloseMenuSequence() {
         // Animate buttons out
         for ( int i = 0; i < _buttonRects.Length; i++ ) {
-            StartCoroutine(AnimateButton(_buttonRects[i], _buttonCanvasGroups[i], i * _staggerDelay, false));
+            StartCoroutine(AnimateButton(_buttonRects[i], _originalPositions[i], _buttonCanvasGroups[i], i * _staggerDelay, false));
         }
 
         // Wait until last button finishes, then fade background
@@ -81,7 +84,7 @@ public class GridMenuAnimator : MonoBehaviour {
     }
 
 
-    private IEnumerator AnimateButton(RectTransform rect, CanvasGroup canvasGroup, float delay, bool fadeIn) {
+    private IEnumerator AnimateButton(RectTransform rect, Vector2 originalPosition, CanvasGroup canvasGroup, float delay, bool fadeIn) {
         yield return new WaitForSeconds(delay);
 
         Vector2 startPosition = rect.anchoredPosition;
@@ -89,7 +92,8 @@ public class GridMenuAnimator : MonoBehaviour {
         float endAlpha = 1f;
 
         if ( fadeIn ) {
-            startPosition += new Vector2(0, _moveOffset);
+            startPosition = originalPosition + new Vector2(0, _moveOffset);
+            endPosition = originalPosition;
             rect.anchoredPosition = startPosition;
             canvasGroup.alpha = 0f;
         } else { //is fading out
