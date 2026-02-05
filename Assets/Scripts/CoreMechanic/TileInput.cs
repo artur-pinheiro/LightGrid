@@ -24,6 +24,7 @@ public class TileInput : MonoBehaviour, IPointerClickHandler {
         if (_inputEnabled) {
             if (!_isMoving) {
                 OnClickTile?.Invoke();
+                EventManager.OnClickTile?.Invoke();
                 _isMoving = true;
             }
         } else {

@@ -27,4 +27,19 @@ public static class EventManager {
     /// Called when the end level UI is shown
     /// </summary>
     public static UnityAction OnShowEndLevelUI { get; set; }
+
+    /// <summary>
+    /// Called when the new score is set
+    /// </summary>
+    public static UnityAction<ScoreData, int> OnSetScore { get; set; }
+
+    /// <summary>
+    /// Called when the score is loaded from disk
+    /// </summary>
+    public static UnityAction<ScoreData> OnScoreLoaded { get; set; }
+
+    /// <summary>
+    /// Called a tile is clicked on the grid
+    /// </summary>
+    public static UnityAction OnClickTile { get; set; }
 }
