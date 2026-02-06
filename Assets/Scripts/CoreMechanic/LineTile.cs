@@ -28,8 +28,13 @@ public class LineTile : MonoBehaviour {
         _tileSprite.SetLineElement(_lineElement);
         if( _lineElement.lineType == LineType.Source || _lineElement.lineType == LineType.Empty ) {
             _tileInput.EnableInput(false);
-        } else
+        } else {
             _tileInput.EnableInput(true);
+
+            //Apply random rotation on level start
+            _rotations = Random.Range(0, 6); ;
+            _tileRotator.SetTileRotation(_rotations);
+        }        
     }
 
     private void UpdateRotationCount() {

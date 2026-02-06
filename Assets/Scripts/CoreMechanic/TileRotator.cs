@@ -15,8 +15,8 @@ public class TileRotator : MonoBehaviour {
     /// <summary>
     /// Immediate, no animation
     /// </summary>
-    public void SetTileRotation() {
-        _transform.Rotate(0, 0, rotationAngle);
+    public void SetTileRotation(int rotations) {
+        _transform.Rotate(0, 0, rotations * rotationAngle);
         OnFinishedRotating?.Invoke();
     }
 
