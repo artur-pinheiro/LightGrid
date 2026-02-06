@@ -3,6 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class ScoreData {
     public int score;
+    public int currentLevel;
     public int unlockedLevels;
 }
 
@@ -26,10 +27,13 @@ public class ScoreManager : MonoBehaviour {
         EventManager.OnFinishedLevel -= SetScore;
     }
 
-    private void SetScore() {
+    private void SetScore(int levelIndex) {
         int currentScore = _levelBaseScore - _tileClicks * 10; // each click will reduce 10 points of score
         _scoreData.score = Mathf.Max(currentScore, _scoreData.score);
-        _scoreData.unlockedLevels++;
+        _scoreData.currentLevel = levelIndex+1;
+        if (levelIndex == _scoreData.unlockedLevels ) {
+            _scoreData.unlockedLevels++;
+        }
         EventManager.OnSetScore?.Invoke(_scoreData, currentScore); ;
     }
 

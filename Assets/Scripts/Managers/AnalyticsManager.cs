@@ -23,7 +23,7 @@ public class AnalyticsManager : MonoBehaviour {
         _amplitude.logEvent("Tile Clicked");
     }
 
-    private void LogLevelComplete() {
+    private void LogLevelComplete(int levelIndex) {
         _amplitude.logEvent("Level Complete");
     }
 }

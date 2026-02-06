@@ -1,7 +1,9 @@
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
+
+    [SerializeField] private int _levelIndex;
 
     private int _totalLamps;
     private int _energizedLamps;
@@ -29,13 +31,11 @@ public class GameManager : MonoBehaviour {
     }
 
     private void FinishLevel() {
-        EventManager.OnFinishedLevel?.Invoke();
-
-        // disable input
-        // completion vfx
-        // move grid away
-        // show UI
-        // animate score
-        // next level
+        EventManager.OnFinishedLevel?.Invoke(_levelIndex);
     }
+
+    public void LoadNextLevel() {
+        SceneManager.LoadScene("Stage01");
+    }
+
 }

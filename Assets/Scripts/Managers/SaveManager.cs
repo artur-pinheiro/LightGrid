@@ -1,31 +1,38 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class SaveManager : MonoBehaviour {
     private string filePath;
 
+    private ScoreData _score;
+
     private void Awake() {
         filePath = Application.persistentDataPath + "/scores.json";
 
-        EventManager.OnSetScore += SaveScore;
+        EventManager.OnSetScore += StoreScoreData;
     }
 
     private void OnDestroy() {
-        EventManager.OnSetScore -= SaveScore;
+        EventManager.OnSetScore -= StoreScoreData;
+        SaveScoreData();
     }
 
     private void Start() {
         EventManager.OnScoreLoaded?.Invoke(LoadScores());
     }
 
-    public void SaveScore(ScoreData newScoreData, int currentScore) {
-        string json = JsonUtility.ToJson(newScoreData, true);
-        System.IO.File.WriteAllText(filePath, json);
+    public void StoreScoreData(ScoreData newScoreData, int currentScore) {
+        _score = newScoreData;
+    }
+
+    public void SaveScoreData() {
+        string json = JsonUtility.ToJson(_score, true);
+        File.WriteAllText(filePath, json);
     }
 
     public ScoreData LoadScores() {
-        if ( System.IO.File.Exists(filePath) ) {
-            string json = System.IO.File.ReadAllText(filePath);
+        if ( File.Exists(filePath) ) {
+            string json = File.ReadAllText(filePath);
             return JsonUtility.FromJson<ScoreData>(json);
         }
         return new ScoreData();

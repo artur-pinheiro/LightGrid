@@ -11,7 +11,7 @@ public class TileEffects : MonoBehaviour {
         EventManager.OnFinishedLevel -= PlayEndLevelEffects;
     }
 
-    private void PlayEndLevelEffects() {
+    private void PlayEndLevelEffects(int levelIndex) {
         foreach ( var effect in _endLevelParticleSystems ) {
             effect.Play();
         }

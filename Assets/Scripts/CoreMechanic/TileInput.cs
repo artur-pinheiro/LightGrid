@@ -36,7 +36,7 @@ public class TileInput : MonoBehaviour, IPointerClickHandler {
         _inputEnabled = enable;
     }
 
-    private void StopInput() {
+    private void StopInput(int levelIndex) {
         _inputStopped = true;
     }
 

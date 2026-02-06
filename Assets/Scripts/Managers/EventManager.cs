@@ -21,7 +21,7 @@ public static class EventManager {
     /// <summary>
     /// Called when the level has been completed
     /// </summary>
-    public static UnityAction OnFinishedLevel { get; set; }
+    public static UnityAction<int> OnFinishedLevel { get; set; }
 
     /// <summary>
     /// Called when the end level UI is shown

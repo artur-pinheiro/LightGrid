@@ -26,7 +26,7 @@ public class EffectManager : MonoBehaviour {
         _levelScore = currentScore;
     }
 
-    private void PlayEndLevelEffects() {
+    private void PlayEndLevelEffects(int levelIndex) {
         foreach (var effect in _endLevelParticleSystems) {
             effect.Play(); 
         }
