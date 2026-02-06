@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 396c773eaf32eb14f9db53e27af0c76d, type: 3}
+  m_Name: Lamp Hex
+  m_EditorClassIdentifier: 
+  lineType: 3
+  neighborConnections: 010000000000
+  offSprite: {fileID: 21300000, guid: bc8acd642344f884c948d6acb96496a9, type: 3}
+  onSprite: {fileID: 21300000, guid: 68b4e4616d001e141a376d59fab4745d, type: 3}
+  iconOnSprite: {fileID: 21300000, guid: 756bae4386f2894458a73dd0bfed8670, type: 3}
+  iconOffSprite: {fileID: 21300000, guid: 4474bcf78a0273540be8c97a37f77aeb, type: 3}
