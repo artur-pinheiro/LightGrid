@@ -129,13 +129,13 @@ public class LineGrid : MonoBehaviour {
             opposite = new int[] { 2, 3, 0, 1 };
         } else if ( tile.LineElement.neighborConnections.Count == 6 ) {
             // Hex grid (axial coordinates, Top = 0, clockwise)
-            directions = new Vector2Int[] {//                                   0                                        
-                new Vector2Int(0, -1),  // 0 = Top                             top
-                new Vector2Int(1, -1),  // 1 = Top-Right                       ___ 
-                new Vector2Int(1, 0),   // 2 = Bottom-Right        5 Top-Left /   \ Top-Right 1
-                new Vector2Int(0, 1),   // 3 = Bottom           4 Bottom-Left \___/ Bottom-Right 2
-                new Vector2Int(-1, 1),  // 4 = Bottom-Left                    Bottom
-                new Vector2Int(-1, 0)   // 5 = Top-Left                          3
+            directions = new Vector2Int[] {//                                    0                                        
+                new Vector2Int(0, 1),  // 0 = Top                               top
+                new Vector2Int(1, 0),  // 1 = Top-Right                         ___ 
+                new Vector2Int(1, -1),   // 2 = Bottom-Right        5 Top-Left /   \ Top-Right 1
+                new Vector2Int(0, -1),   // 3 = Bottom           4 Bottom-Left \___/ Bottom-Right 2
+                new Vector2Int(-1, 0),  // 4 = Bottom-Left                    Bottom
+                new Vector2Int(-1, +1)   // 5 = Top-Left                          3
             };
 
             opposite = new int[] { 3, 4, 5, 0, 1, 2 };
