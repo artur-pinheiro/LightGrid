@@ -11,11 +11,13 @@ public class GameManager : MonoBehaviour {
     void Awake() {
         EventManager.OnCountLamps += SetLampsCount;
         EventManager.OnEnergizeLamp += UpdateEnergizedLamps;
+        EventManager.OnNewLevelSelected += LoadNextLevel;
     }
 
     private void OnDestroy() {
         EventManager.OnCountLamps -= SetLampsCount;
         EventManager.OnEnergizeLamp -= UpdateEnergizedLamps;
+        EventManager.OnNewLevelSelected -= LoadNextLevel;
     }
 
     private void SetLampsCount(int count) {
@@ -34,8 +36,16 @@ public class GameManager : MonoBehaviour {
         EventManager.OnFinishedLevel?.Invoke(_levelIndex);
     }
 
-    public void LoadNextLevel() {
-        SceneManager.LoadScene("Stage01");
+    public void LoadNextLevel(int nextLevelIndex) {
+        int nextLevel = nextLevelIndex >= 0 ? nextLevelIndex : _levelIndex + 1;
+
+        SceneManager.UnloadSceneAsync("Stage" + _levelIndex.ToString("00"));
+        SceneManager.LoadScene("Stage" + nextLevel.ToString("00"), LoadSceneMode.Additive);
+
+        _levelIndex = nextLevel;
+        _energizedLamps = 0;
+
+        EventManager.OnLoadedNewLevel?.Invoke(_levelIndex);
     }
 
 }

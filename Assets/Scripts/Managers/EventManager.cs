@@ -39,7 +39,17 @@ public static class EventManager {
     public static UnityAction<ScoreData> OnScoreLoaded { get; set; }
 
     /// <summary>
-    /// Called a tile is clicked on the grid
+    /// Called when a tile is clicked on the grid
     /// </summary>
     public static UnityAction OnClickTile { get; set; }
+
+    /// <summary>
+    /// Called when a new level is selected on Levels Menu
+    /// </summary>
+    public static UnityAction<int> OnNewLevelSelected { get; set; }
+
+    /// <summary>
+    /// Called when a new level is loaded
+    /// </summary>
+    public static UnityAction<int> OnLoadedNewLevel { get; set; }
 }

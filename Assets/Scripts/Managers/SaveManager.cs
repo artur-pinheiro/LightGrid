@@ -18,7 +18,8 @@ public class SaveManager : MonoBehaviour {
     }
 
     private void Start() {
-        EventManager.OnScoreLoaded?.Invoke(LoadScores());
+        _score = LoadScores();
+        EventManager.OnScoreLoaded?.Invoke(_score);
     }
 
     public void StoreScoreData(ScoreData newScoreData, int currentScore) {

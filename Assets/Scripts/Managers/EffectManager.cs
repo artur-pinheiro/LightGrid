@@ -13,11 +13,13 @@ public class EffectManager : MonoBehaviour {
     private int _levelScore;
 
     void Awake() {
+        EventManager.OnLoadedNewLevel += ResetCamera;
         EventManager.OnFinishedLevel += PlayEndLevelEffects;
         EventManager.OnSetScore += UpdateScoreValue;
     }
 
     private void OnDestroy() {
+        EventManager.OnLoadedNewLevel -= ResetCamera;
         EventManager.OnFinishedLevel -= PlayEndLevelEffects;
         EventManager.OnSetScore -= UpdateScoreValue;
     }
@@ -39,5 +41,9 @@ public class EffectManager : MonoBehaviour {
         _cameraAnimator.Play("cameraDecend");
         EventManager.OnShowEndLevelUI?.Invoke();
         _sliderController.AnimateSlider(_levelScore, _scoreAnimationDuration);
+    }
+
+    private void ResetCamera(int currentLevel) {
+        _cameraAnimator.Play("cameraAscend");
     }
 }

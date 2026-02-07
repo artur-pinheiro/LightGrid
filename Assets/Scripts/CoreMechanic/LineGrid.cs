@@ -13,10 +13,12 @@ public class LineGrid : MonoBehaviour {
 
     private void Awake() {
         EventManager.OnFinishRotatingTile += ActivateLines;
+        EventManager.OnNewLevelSelected += HideGrid;
     }
 
     private void OnDestroy() {
         EventManager.OnFinishRotatingTile -= ActivateLines;
+        EventManager.OnNewLevelSelected -= HideGrid;
     }
 
     void Start() {
@@ -200,5 +202,8 @@ public class LineGrid : MonoBehaviour {
         return result;
     }
 
+    private void HideGrid(int nextSceneIndex) {
+        gameObject.SetActive(false);
+    }
 
 }

@@ -9,31 +9,47 @@ public class UIManager : MonoBehaviour {
     [SerializeField] private Button _levelsMenuReturnButton;
 
     void Awake() {
-        EventManager.OnScoreLoaded += UpdateLevelsMenu;
+        EventManager.OnLoadedNewLevel += UpdateLevelsMenu; 
+        EventManager.OnLoadedNewLevel += ShowIngamelUI;
         EventManager.OnShowEndLevelUI += ShowEndLevelUI;
+
+        UpdateLevelsMenu(0);
     }
 
     private void OnDestroy() {
-        EventManager.OnScoreLoaded -= UpdateLevelsMenu;
+        EventManager.OnLoadedNewLevel -= UpdateLevelsMenu; 
+        EventManager.OnLoadedNewLevel -= ShowIngamelUI;
         EventManager.OnShowEndLevelUI -= ShowEndLevelUI;
     }
 
-    private void UpdateLevelsMenu(ScoreData scoreData) {
-        _levelsMenu.UpdateUnlockedLevels(scoreData.unlockedLevels, scoreData.currentLevel);
+    private void UpdateLevelsMenu(int currentLevel) {
+        _levelsMenu.SetCurrentLevelButton(currentLevel);
     }
 
     private void ShowEndLevelUI() {
         _inGameUI.SetActive(false);
         _endLevelMenu.SetActive(true);
+        _levelsMenu.UpdateUnlockedLevels();
     }
-    
+
+    private void ShowIngamelUI(int currentLevel) {
+        _inGameUI.SetActive(true);
+        _levelsMenu.gameObject.SetActive(false);
+        if ( _endLevelMenu.activeSelf ) {
+            _endLevelMenu.GetComponent<Animator>().Play("Hide");
+            Invoke(nameof(HideEndLevelUI),1.5f);
+        }
+    }
+
+    private void HideEndLevelUI() {
+        _endLevelMenu.SetActive(false);
+    }
+
     public void ShowLevelsMenu(bool isCurrentLevelComplete) {
 
         _levelsMenuReturnButton.gameObject.SetActive(!isCurrentLevelComplete);
         _levelsMenuReturnButton.interactable = !isCurrentLevelComplete;
-        if ( isCurrentLevelComplete ) {
-            _levelsMenu.UpdateUnlockedLevels();
-        }
+        //_levelsMenuReturnButton.GetComponent<CanvasGroup>().alpha = isCurrentLevelComplete ? 0 : 1;
         _levelsMenu.gameObject.SetActive(true);
     }
 }
