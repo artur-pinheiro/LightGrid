@@ -3,8 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-    [SerializeField] private int _levelIndex;
-
+    [SerializeField] private int _availableLevels;
+    
+    private int _levelIndex;
     private int _totalLamps;
     private int _energizedLamps;
 
@@ -37,7 +38,14 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LoadNextLevel(int nextLevelIndex) {
-        int nextLevel = nextLevelIndex >= 0 ? nextLevelIndex : _levelIndex + 1;
+        int nextLevel;
+        if ( nextLevelIndex < 0 ) { //nextLevelIndex will be -1 if coming from the "Continue" button, indicating we just have to go to the next level ir order, otherwise we move to a specific level selected in the LevelsMenu
+            if ( _levelIndex == _availableLevels - 1 )  // out of levels, loop to the first
+                nextLevel = 0;
+            else
+                nextLevel = _levelIndex + 1;
+        } else
+            nextLevel = nextLevelIndex;
 
         SceneManager.UnloadSceneAsync("Stage" + _levelIndex.ToString("00"));
         SceneManager.LoadScene("Stage" + nextLevel.ToString("00"), LoadSceneMode.Additive);
@@ -45,7 +53,7 @@ public class GameManager : MonoBehaviour {
         _levelIndex = nextLevel;
         _energizedLamps = 0;
 
-        EventManager.OnLoadedNewLevel?.Invoke(_levelIndex);
+        EventManager.OnLoadedNewLevel?.Invoke(_levelIndex, _availableLevels);
     }
 
 }

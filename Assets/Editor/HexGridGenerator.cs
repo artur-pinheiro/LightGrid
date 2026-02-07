@@ -31,7 +31,7 @@ public class HexGridGeneratorEditor : EditorWindow
     }
 
     void GenerateHexGrid() {
-        // Create a parent object to hold the grid tiles
+
         GameObject parent = new GameObject("HexGrid");
 
         float hexWidth = 2f * hexRadius;
@@ -46,7 +46,6 @@ public class HexGridGeneratorEditor : EditorWindow
 
                 Vector3 pos = new Vector3(posX, posY, 0);
 
-                // Instantiate prefab in the editor scene
                 GameObject hexTile = (GameObject)PrefabUtility.InstantiatePrefab(hexTilePrefab);
                 hexTile.transform.position = pos;
                 hexTile.transform.parent = parent.transform;

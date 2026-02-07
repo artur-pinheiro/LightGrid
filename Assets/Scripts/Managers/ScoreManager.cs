@@ -28,12 +28,13 @@ public class ScoreManager : MonoBehaviour {
     }
 
     private void SetScore(int levelIndex) {
-        int currentScore = _levelBaseScore - _tileClicks * 10; // each click will reduce 10 points of score
+        int currentScore = Mathf.Max(_levelBaseScore/2, _levelBaseScore - _tileClicks * 10); // each click will reduce 10 points of score
         _scoreData.score = Mathf.Max(currentScore, _scoreData.score);
-        _scoreData.currentLevel = levelIndex+1;
+        _scoreData.currentLevel = levelIndex;
         if (levelIndex == _scoreData.unlockedLevels ) {
             _scoreData.unlockedLevels++;
         }
+        _tileClicks = 0;
         EventManager.OnSetScore?.Invoke(_scoreData, currentScore); ;
     }
 

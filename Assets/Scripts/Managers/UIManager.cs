@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public class UIManager : MonoBehaviour {
         EventManager.OnLoadedNewLevel += ShowIngamelUI;
         EventManager.OnShowEndLevelUI += ShowEndLevelUI;
 
-        UpdateLevelsMenu(0);
+        UpdateLevelsMenu(0,2);
     }
 
     private void OnDestroy() {
@@ -22,8 +23,9 @@ public class UIManager : MonoBehaviour {
         EventManager.OnShowEndLevelUI -= ShowEndLevelUI;
     }
 
-    private void UpdateLevelsMenu(int currentLevel) {
+    private void UpdateLevelsMenu(int currentLevel, int maxLevelsNumber) {
         _levelsMenu.SetCurrentLevelButton(currentLevel);
+        _levelsMenu.setLevelsNumber(maxLevelsNumber);
     }
 
     private void ShowEndLevelUI() {
@@ -32,7 +34,7 @@ public class UIManager : MonoBehaviour {
         _levelsMenu.UpdateUnlockedLevels();
     }
 
-    private void ShowIngamelUI(int currentLevel) {
+    private void ShowIngamelUI(int currentLevel, int maxLevelsNumber) {
         _inGameUI.SetActive(true);
         _levelsMenu.gameObject.SetActive(false);
         if ( _endLevelMenu.activeSelf ) {
@@ -46,10 +48,9 @@ public class UIManager : MonoBehaviour {
     }
 
     public void ShowLevelsMenu(bool isCurrentLevelComplete) {
-
-        _levelsMenuReturnButton.gameObject.SetActive(!isCurrentLevelComplete);
         _levelsMenuReturnButton.interactable = !isCurrentLevelComplete;
-        //_levelsMenuReturnButton.GetComponent<CanvasGroup>().alpha = isCurrentLevelComplete ? 0 : 1;
+        _levelsMenuReturnButton.GetComponent<Image>().enabled = !isCurrentLevelComplete;
+        _levelsMenuReturnButton.GetComponentInChildren<TextMeshProUGUI>().enabled = !isCurrentLevelComplete;
         _levelsMenu.gameObject.SetActive(true);
     }
 }

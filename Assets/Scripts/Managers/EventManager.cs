@@ -51,5 +51,5 @@ public static class EventManager {
     /// <summary>
     /// Called when a new level is loaded
     /// </summary>
-    public static UnityAction<int> OnLoadedNewLevel { get; set; }
+    public static UnityAction<int,int> OnLoadedNewLevel { get; set; }
 }

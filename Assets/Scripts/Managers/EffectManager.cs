@@ -43,7 +43,7 @@ public class EffectManager : MonoBehaviour {
         _sliderController.AnimateSlider(_levelScore, _scoreAnimationDuration);
     }
 
-    private void ResetCamera(int currentLevel) {
+    private void ResetCamera(int currentLevel, int maxLevelsNumber) {
         _cameraAnimator.Play("cameraAscend");
     }
 }

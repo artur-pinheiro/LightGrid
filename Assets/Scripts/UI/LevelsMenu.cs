@@ -7,6 +7,7 @@ public class LevelsMenu : MonoBehaviour {
 
     private GridMenuAnimator _menuAnimator;
 
+    private int _maxAvailableLevels;
     private int _currentLevel;
     private int _unlockedLevels;
     private int _selectedLevelIndex = -1;
@@ -22,11 +23,6 @@ public class LevelsMenu : MonoBehaviour {
         _menuAnimator.OpenMenu();
     }
 
-    public void OnCloseMenu(int levelIndex) {
-        _selectedLevelIndex = levelIndex;
-        _menuAnimator.CloseMenu();
-    }
-
     private void MoveToLevel(bool openedMenu) {
         if (!openedMenu) {
             if (_selectedLevelIndex >= 0) {
@@ -35,6 +31,15 @@ public class LevelsMenu : MonoBehaviour {
                 gameObject.SetActive(false);
             }
         }
+    }
+
+    public void setLevelsNumber(int levelsNUmber) {
+        _maxAvailableLevels = levelsNUmber;
+    }
+
+    public void OnCloseMenu(int levelIndex) {
+        _selectedLevelIndex = levelIndex;
+        _menuAnimator.CloseMenu();
     }
 
     public void SetCurrentLevelButton(int currentLevel) {
@@ -48,10 +53,13 @@ public class LevelsMenu : MonoBehaviour {
 
     public void UpdateUnlockedLevels() {
         _levelButtons ??= GetComponentsInChildren<Button>();
-        _unlockedLevels++;
-        for ( int i = 0; i < _levelButtons.Length; i++ ) {
-            _levelButtons[i].interactable = i <= _unlockedLevels;
-        }
+
+        if ( _currentLevel == _unlockedLevels && _unlockedLevels < _maxAvailableLevels-1 ) {
+            _unlockedLevels++;
+            for ( int i = 0; i < _levelButtons.Length; i++ ) {
+                _levelButtons[i].interactable = i <= _unlockedLevels;
+            }
+        }        
 
         _levelButtons[_currentLevel].interactable = false;
     }
