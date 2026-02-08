@@ -6,7 +6,7 @@ public class HexGridGeneratorEditor : EditorWindow
     public GameObject hexTilePrefab;
     public int gridWidth = 10;
     public int gridHeight = 10;
-    public float hexRadius = 1f;
+    public float hexRadius = 0.259f;
 
     [MenuItem("Tools/Hex Grid Generator")]
     public static void ShowWindow() {
