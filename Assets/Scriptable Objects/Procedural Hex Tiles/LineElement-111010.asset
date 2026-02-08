@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 396c773eaf32eb14f9db53e27af0c76d, type: 3}
+  m_Name: LineElement-111010
+  m_EditorClassIdentifier: 
+  lineType: 4
+  neighborConnections: 010101000100
+  offSprite: {fileID: 21300000, guid: 2c87d4d8b28c77d43a6f44e20ffa0c9d, type: 3}
+  onSprite: {fileID: 21300000, guid: b2ad98d95fe54b54d9e5f764a4f25c21, type: 3}
+  iconOnSprite: {fileID: 0}
+  iconOffSprite: {fileID: 0}
