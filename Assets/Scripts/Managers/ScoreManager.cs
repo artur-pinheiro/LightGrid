@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour {
     [Tooltip("Score added when the player finishes a level")]
     [SerializeField] private int _levelBaseScore;
 
-    private ScoreData _scoreData;
+    private int _scoreRecord;
     private int _tileClicks = 0;
 
     private void Awake() {
@@ -29,13 +29,9 @@ public class ScoreManager : MonoBehaviour {
 
     private void SetScore(int levelIndex) {
         int currentScore = Mathf.Max(_levelBaseScore/2, _levelBaseScore - _tileClicks * 10); // each click will reduce 10 points of score
-        _scoreData.score = Mathf.Max(currentScore, _scoreData.score);
-        _scoreData.currentLevel = levelIndex;
-        if (levelIndex == _scoreData.unlockedLevels ) {
-            _scoreData.unlockedLevels++;
-        }
+        _scoreRecord = Mathf.Max(currentScore, _scoreRecord);
         _tileClicks = 0;
-        EventManager.OnSetScore?.Invoke(_scoreData, currentScore); ;
+        EventManager.OnSetScore?.Invoke(_scoreRecord, currentScore); ;
     }
 
     private void UpdateClickCount() {
@@ -43,6 +39,6 @@ public class ScoreManager : MonoBehaviour {
     }
 
     private void LoadScore(ScoreData scoreData) {
-        _scoreData = scoreData;
+        _scoreRecord = scoreData.score;
     }
 }

@@ -53,7 +53,7 @@ public class LevelsMenu : MonoBehaviour {
 
     public void SetUnlockedLevels(int levelsNumber) {
         _unlockedLevels = levelsNumber;
-        TurnOffLockedLevels();
+        TurnOffLockedLevels(false);
         _levelButtons[_currentLevel].interactable = false;
     }
 
@@ -61,16 +61,18 @@ public class LevelsMenu : MonoBehaviour {
 
         if ( _currentLevel == _unlockedLevels && _unlockedLevels < _maxAvailableLevels-1 ) {
             _unlockedLevels++;
-            TurnOffLockedLevels();
+            TurnOffLockedLevels(true);
+            EventManager.OnUnlockedNewLevel?.Invoke(_unlockedLevels);
         }        
 
         _levelButtons[_currentLevel].interactable = false;
     }
 
-    private void TurnOffLockedLevels() {
+    private void TurnOffLockedLevels(bool showNext) {
         _levelButtons ??= GetComponentsInChildren<Button>();
+        int nextLevel = showNext ? 0 : 1;
         for ( int i = 0; i < _levelButtons.Length; i++ ) {
-            _levelButtons[i].interactable = i <= _unlockedLevels - 1;
+            _levelButtons[i].interactable = i <= _unlockedLevels - nextLevel;
         }
     }
 }

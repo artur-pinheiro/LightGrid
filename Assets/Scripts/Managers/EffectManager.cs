@@ -24,7 +24,7 @@ public class EffectManager : MonoBehaviour {
         EventManager.OnSetScore -= UpdateScoreValue;
     }
 
-    private void UpdateScoreValue(ScoreData scoreData, int currentScore) {
+    private void UpdateScoreValue(int scoreRecord, int currentScore) {
         _levelScore = currentScore;
     }
 

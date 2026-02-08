@@ -31,7 +31,7 @@ public static class EventManager {
     /// <summary>
     /// Called when the new score is set
     /// </summary>
-    public static UnityAction<ScoreData, int> OnSetScore { get; set; }
+    public static UnityAction<int, int> OnSetScore { get; set; }
 
     /// <summary>
     /// Called when the score is loaded from disk
@@ -52,4 +52,10 @@ public static class EventManager {
     /// Called when a new level is loaded
     /// </summary>
     public static UnityAction<int,int> OnLoadedNewLevel { get; set; }
+
+    /// <summary>
+    /// Called when a new level is unlocked
+    /// </summary>
+    public static UnityAction<int> OnUnlockedNewLevel { get; set; }
+    
 }
