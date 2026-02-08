@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,17 +9,27 @@ public class GameManager : MonoBehaviour {
     private int _levelIndex;
     private int _totalLamps;
     private int _energizedLamps;
+    private bool _firstTimeLoad = true;
 
     void Awake() {
         EventManager.OnCountLamps += SetLampsCount;
         EventManager.OnEnergizeLamp += UpdateEnergizedLamps;
         EventManager.OnNewLevelSelected += LoadNextLevel;
+        EventManager.OnScoreLoaded += SelectFirstLevel;
     }
 
     private void OnDestroy() {
         EventManager.OnCountLamps -= SetLampsCount;
         EventManager.OnEnergizeLamp -= UpdateEnergizedLamps;
         EventManager.OnNewLevelSelected -= LoadNextLevel;
+        EventManager.OnScoreLoaded -= SelectFirstLevel;
+    }
+
+    private void SelectFirstLevel(ScoreData score) {
+        if (_firstTimeLoad) {
+            LoadNextLevel(score.currentLevel);
+            _firstTimeLoad = false;
+        }
     }
 
     private void SetLampsCount(int count) {
@@ -47,7 +58,9 @@ public class GameManager : MonoBehaviour {
         } else
             nextLevel = nextLevelIndex;
 
-        SceneManager.UnloadSceneAsync("Stage" + _levelIndex.ToString("00"));
+        string currentScene = "Stage" + _levelIndex.ToString("00");
+        if ( IsSceneLoaded(currentScene) ) 
+            SceneManager.UnloadSceneAsync(currentScene);
         SceneManager.LoadScene("Stage" + nextLevel.ToString("00"), LoadSceneMode.Additive);
 
         _levelIndex = nextLevel;
@@ -56,4 +69,13 @@ public class GameManager : MonoBehaviour {
         EventManager.OnLoadedNewLevel?.Invoke(_levelIndex, _availableLevels);
     }
 
+    public bool IsSceneLoaded(string sceneName) {
+        for ( int i = 0; i < SceneManager.sceneCount; i++ ) {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if ( scene.name == sceneName && scene.isLoaded ) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

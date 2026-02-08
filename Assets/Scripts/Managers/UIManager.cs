@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class UIManager : MonoBehaviour {
         EventManager.OnLoadedNewLevel += UpdateLevelsMenu; 
         EventManager.OnLoadedNewLevel += ShowIngamelUI;
         EventManager.OnShowEndLevelUI += ShowEndLevelUI;
+        EventManager.OnScoreLoaded += SetUnlockedLevels;
 
         UpdateLevelsMenu(0,2);
     }
@@ -21,6 +23,11 @@ public class UIManager : MonoBehaviour {
         EventManager.OnLoadedNewLevel -= UpdateLevelsMenu; 
         EventManager.OnLoadedNewLevel -= ShowIngamelUI;
         EventManager.OnShowEndLevelUI -= ShowEndLevelUI;
+        EventManager.OnScoreLoaded -= SetUnlockedLevels;
+    }
+
+    private void SetUnlockedLevels(ScoreData score) {
+        _levelsMenu.SetUnlockedLevels(score.unlockedLevels);
     }
 
     private void UpdateLevelsMenu(int currentLevel, int maxLevelsNumber) {

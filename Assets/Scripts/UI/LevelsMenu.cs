@@ -51,16 +51,26 @@ public class LevelsMenu : MonoBehaviour {
         _levelButtons[_currentLevel].interactable = false;
     }
 
+    public void SetUnlockedLevels(int levelsNumber) {
+        _unlockedLevels = levelsNumber;
+        TurnOffLockedLevels();
+        _levelButtons[_currentLevel].interactable = false;
+    }
+
     public void UpdateUnlockedLevels() {
-        _levelButtons ??= GetComponentsInChildren<Button>();
 
         if ( _currentLevel == _unlockedLevels && _unlockedLevels < _maxAvailableLevels-1 ) {
             _unlockedLevels++;
-            for ( int i = 0; i < _levelButtons.Length; i++ ) {
-                _levelButtons[i].interactable = i <= _unlockedLevels;
-            }
+            TurnOffLockedLevels();
         }        
 
         _levelButtons[_currentLevel].interactable = false;
+    }
+
+    private void TurnOffLockedLevels() {
+        _levelButtons ??= GetComponentsInChildren<Button>();
+        for ( int i = 0; i < _levelButtons.Length; i++ ) {
+            _levelButtons[i].interactable = i <= _unlockedLevels - 1;
+        }
     }
 }
