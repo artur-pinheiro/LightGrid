@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineType: 4
   neighborConnections: 010101010101
-  offSprite: {fileID: 21300000, guid: 58986e3317eb97343ab6c01b41ae5555, type: 3}
+  offSprite: {fileID: 21300000, guid: f3eb15927432e1d46b715254e201a46d, type: 3}
   onSprite: {fileID: 21300000, guid: 58986e3317eb97343ab6c01b41ae5555, type: 3}
   iconOnSprite: {fileID: 0}
   iconOffSprite: {fileID: 0}
